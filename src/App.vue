@@ -1,9 +1,8 @@
 <template>
   <div class="app">
-
     <div
       class="card"
-      :class="`${convertTemp(data.main.temp) > 10 ? 'bg-warm' : 'bg-cold'}`"
+      :class="`${convertTemp(data.main.temp) > 15 ? 'bg-warm' : 'bg-cold'}`"
     >
       <div class="input-wrapper">
         <input
@@ -18,15 +17,15 @@
         <i @click="get" class="fas fa-search"></i>
       </div>
       <Spinner v-if="isLoading" class="spinner"></Spinner>
-      <NotFound v-else-if="notFound" style="z-index:20"></NotFound>
-      
+      <NotFound v-else-if="notFound" style="z-index: 20"></NotFound>
+
       <div v-else class="information-box">
         <div class="location-wrapper">
           <div class="location">
             {{ data.name == undefined ? "Tehran" : data.name }} ,
             {{ data.sys.country == "" ? "IR" : data.sys.country }}
           </div>
-          <div class="date">{{ currentTime }}</div>
+          <div class="date" v-html="dateFormatChenger()"></div>
         </div>
         <div class="weather-box">
           <div class="temp">{{ convertTemp(data.main.temp) }}°c</div>
@@ -49,8 +48,8 @@ export default {
       api_key: "05e5e1fff65935434abe537e5f0e7608",
       baseUrl: "http://api.openweathermap.org/data/2.5/weather",
       city: "Tehran",
-      currentTime: new Date().toLocaleString(),
-      notFound:false,
+      // currentTime: new Date().toLocaleString(),
+      notFound: false,
       data: {
         sys: {
           country: "",
@@ -69,7 +68,7 @@ export default {
   },
   components: {
     Spinner,
-    NotFound
+    NotFound,
   },
   mounted() {
     this.get();
@@ -95,13 +94,44 @@ export default {
             this.notFound = false;
           })
           .catch(() => {
-            console.log('tes');
+            console.log("tes");
             this.notFound = true;
           })
           .finally(() => {
             this.isLoading = false;
           });
       }, 1500);
+    },
+    dateFormatChenger() {
+      let date = new Date();
+      let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+
+      let day = days[date.getDay()];
+      let month = months[date.getMonth()];
+      let year = date.getFullYear()
+      return `${day} ${date.getDate()} ${month} ${year}`
     },
   },
 };
@@ -122,7 +152,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('./assets/main-bg.jpg');
+  background-image: url("./assets/main1-bg.jpg");
   background-size: cover;
   background-position: bottom;
   .card {
@@ -140,7 +170,7 @@ body {
     background-position: bottom;
     position: relative;
     transition: all 1s ease;
-    @media only screen and (max-width : 450px) {
+    @media only screen and (max-width: 450px) {
       height: 100vh;
       margin: 0;
     }
@@ -195,7 +225,7 @@ body {
         &:focus + .fa-search {
           transition: all 0.5s ease;
           animation: shake 0.15s linear 2;
-            pointer-events: unset;
+          pointer-events: unset;
           &:hover {
             cursor: pointer;
             transform: scale(1.1) rotate(360deg);
@@ -229,7 +259,7 @@ body {
           font-size: 2.5rem;
           font-weight: 500;
           text-shadow: 5px 0 5px rgba(0, 0, 0, 0.541);
-          @media only screen and(max-width:350px){
+          @media only screen and(max-width:350px) {
             font-size: 2rem;
           }
         }
@@ -239,7 +269,7 @@ body {
           font-style: italic;
           font-weight: 100;
           text-shadow: 5px 0 5px rgba(0, 0, 0, 0.541);
-          @media only screen and(max-width:350px){
+          @media only screen and(max-width:350px) {
             font-size: 1rem;
           }
         }
