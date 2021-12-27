@@ -25,7 +25,7 @@
             {{ data.name == undefined ? "Tehran" : data.name }} ,
             {{ data.sys.country == "" ? "IR" : data.sys.country }}
           </div>
-          <div class="date" v-html="dateFormatChenger()"></div>
+          <div class="date" >{{dateFormatChenger()}}</div>
         </div>
         <div class="weather-box">
           <div class="temp">{{ convertTemp(data.main.temp) }}°c</div>
@@ -48,7 +48,6 @@ export default {
       api_key: "05e5e1fff65935434abe537e5f0e7608",
       baseUrl: "http://api.openweathermap.org/data/2.5/weather",
       city: "Tehran",
-      // currentTime: new Date().toLocaleString(),
       notFound: false,
       data: {
         sys: {
@@ -173,6 +172,7 @@ body {
     @media only screen and (max-width: 450px) {
       height: 100vh;
       margin: 0;
+      border-radius: 0;
     }
     &.bg-warm {
       background-image: url("./assets/warm-bg.jpg");

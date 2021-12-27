@@ -200,6 +200,7 @@
           </svg>
         </div>
         <h1>404 Error.</h1>
+        <p class="valid-city">Enter a valid location</p>
       </div>
     </div>
   </div>
@@ -217,13 +218,21 @@
   max-width: 960px;
   /* height: 600px; */
   margin: 0;
-  box-shadow: 0px 0px 8px 1px #ccc;
+  /* box-shadow: 0px 0px 8px 1px #ccc; */
   background: transparent;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.valid-city{
+  font-size: 25px;
+  white-space: nowrap;
+  width: 100%;
+  font-weight: bold;
+  color: white;
+  text-shadow: 5px 0px 5px rgba(0, 0, 0, 0.657);
 }
 svg {
   width: 100%;
