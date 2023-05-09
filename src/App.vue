@@ -1,8 +1,13 @@
 <template>
-  <div class="app">
+  <div
+    class="app"
+    :class="`${convertTemp(data.main.temp) <= 15 ? 'cold-app' : 'warm-app'}`"
+  >
     <div
       class="card"
-      :class="`${convertTemp(data.main.temp) > 15 ? 'bg-warm' : 'bg-cold'}`"
+      :class="`${
+        convertTemp(data.main.temp) <= 15 ? 'cold-card' : 'warm-card'
+      }`"
     >
       <div class="input-wrapper">
         <input
@@ -25,7 +30,7 @@
             {{ data.name == undefined ? "Tehran" : data.name }} ,
             {{ data.sys.country == "" ? "IR" : data.sys.country }}
           </div>
-          <div class="date" >{{dateFormatChenger()}}</div>
+          <div class="date">{{ dateFormatChenger() }}</div>
         </div>
         <div class="weather-box">
           <div class="temp">{{ convertTemp(data.main.temp) }}°c</div>
@@ -129,8 +134,8 @@ export default {
 
       let day = days[date.getDay()];
       let month = months[date.getMonth()];
-      let year = date.getFullYear()
-      return `${day} ${date.getDate()} ${month} ${year}`
+      let year = date.getFullYear();
+      return `${day} ${date.getDate()} ${month} ${year}`;
     },
   },
 };
@@ -151,31 +156,38 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./assets/main1-bg.jpg");
+  background-image: url("./assets/main-bg.jpg");
   background-size: cover;
-  background-position: bottom;
+  background-position: top;
+  height: 100vh;
+  transition: all 1s ease;
+  &.cold-app {
+    background-image: url("./assets/base-cold-bg.jpg");
+  }
   .card {
     overflow: hidden;
     margin: 1rem 0;
     width: 100%;
     max-width: 400px;
-    height: 95vh;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px;
-    background-image: url("./assets/cold-bg.jpg");
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-image: url("./assets/warm-bg.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: bottom;
     position: relative;
-    transition: all 1s ease;
+    transition: all 2s ease;
     @media only screen and (max-width: 450px) {
       height: 100vh;
       margin: 0;
       border-radius: 0;
     }
-    &.bg-warm {
-      background-image: url("./assets/warm-bg.jpg");
+    &.cold-card {
+      background-image: url("./assets/cold-bg.jpg");
     }
     &::after {
       content: "";

@@ -24,7 +24,7 @@ export default {};
       width: 25px;
       height: 25px;
       margin: 0 calc(15px / 2);
-      border: calc(15px / 5) solid #920050;
+      border: calc(15px / 5) solid #ffffff;
       border-radius: 50%;
       float: left;
       transform: scale(0);
